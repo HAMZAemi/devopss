@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package'            }
+sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean compile'            }
         }
         stage('Test') {
             steps {
@@ -24,7 +24,7 @@ sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package'            }
         }
         stage('Deliver') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                sh '/opt/apache-maven-3.6.3/bin/mvn package'
             }
         }
     }
