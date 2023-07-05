@@ -23,9 +23,17 @@ sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean compile'            }
             }
         }
         stage('Deliver') {
-            steps {
-                sh '/opt/apache-maven-3.6.3/bin/mvn package'
-            }
+             steps {
+        script {
+          def componentsPath = 'build'
+          def nexusUrl = 'http://localhost:8081'
+          def nexusUsername = 'exosdata'
+          def nexusPassword = 'stage'
+          def nexusRepository = 'ExosData'
+          
+          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ${componentsPath} ${nexusUrl}/repository/${nexusRepository}"
+        }
+      }
         }
     }
 }
