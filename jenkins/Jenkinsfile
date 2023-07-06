@@ -25,7 +25,7 @@ sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package'            }
      stage('Deliver') {
   steps {
     script {
-      def componentsPath = "${WORKSPACE}/target/my-app-1.0-SNAPSHOT.jar"
+      def componentsPath = "target/my-app-1.0-SNAPSHOT.jar"
       def nexusUrl = 'http://192.99.35.61:8081/repository/hamza/'
       def nexusUsername = 'exosdata'
       def nexusPassword = 'stage'
