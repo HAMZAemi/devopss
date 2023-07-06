@@ -27,21 +27,8 @@ pipeline {
             }
         }
           stage('Deliver') {
-            steps {
-                script {
-                    def nexusUrl = 'http://192.99.35.61:8081/repository/hamza/'
-                    def nexusUsername = 'exosdata'  
-                    def nexusPassword = 'stage'
-                    def nexusRepository = 'hamza'
-
-                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./target/my-app-1.0-SNAPSHOT.jar ${nexusUrl}"
-                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./target/maven-archiver/pom.properties ${nexusUrl}"
-                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./target/maven-status ${nexusUrl}"
-                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./target/generated-sources ${nexusUrl}"
-                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./target/test-classes ${nexusUrl}"
-                    sh "curl -u ${nexusUsername}:${nexusPassword} -T target/ --path-as-is  -X PUT ${nexusUrl}"
-                }
-            }
+            steps { sh '/opt/apache-maven-3.6.3/bin/mvn clean deploy '}
+                
         }
     }
 }
