@@ -31,7 +31,7 @@ pipeline {
                     def nexusPassword = 'stage'
                     def nexusRepository = 'hamza'
 
-                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file target/my-app-1.0-SNAPSHOT.jar ${nexusUrl}/repository/${nexusRepository}"
+                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file target/my-app-1.0-SNAPSHOT.jar ${nexusUrl}"
                 }
             }
         }
