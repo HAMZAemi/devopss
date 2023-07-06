@@ -1,20 +1,21 @@
 pipeline {
     agent any
-   
+    
     stages {
         stage('Set up') {
             steps {
                 // Définir le chemin d'accès à Maven
-                sh 'export PATH=$PATH:/opt/apache-maven-3.6.3/bin'
+                sh 'export PATH=$PATH:/opt/apache-maven-3.6.3/bin' 
             }
         }
         stage('Build') {
             steps {
-sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package'            }
+                sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package' 
+            }
         }
         stage('Test') {
             steps {
-               sh '/opt/apache-maven-3.6.3/bin/mvn test'
+                sh '/opt/apache-maven-3.6.3/bin/mvn test' 
             }
             post {
                 always {
@@ -22,19 +23,19 @@ sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package'            }
                 }
             }
         }
-     stage('Deliver') {
-  steps {
-    script {
-      def componentsPath = "${WORKSPACE}/target/my-app-1.0-SNAPSHOT.jar"
-      def nexusUrl = 'http://192.99.35.61:8081/repository/hamza/'
-      def nexusUsername = 'exosdata'
-      def nexusPassword = 'stage'
-      def nexusRepository = 'hamza'
-      
-      sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ${componentsPath} ${nexusUrl}/repository/${nexusRepository}"
-      sh "cd ${WORKSPACE}/target && curl -u ${nexusUsername}:${nexusPassword} --upload-file my-app-1.0-SNAPSHOT.jar ${nexusUrl}/repository/${nexusRepository}"
-    }
-  }
-}
+        stage('Deliver') {
+            steps {
+                script {
+                    sh "cd target/"
+                    def componentsPath = "my-app-1.0-SNAPSHOT.jar"
+                    def nexusUrl = 'http://192.99.35.61:8081/repository/hamza/'
+                    def nexusUsername = 'exosdata'
+                    def nexusPassword = 'stage'
+                    def nexusRepository = 'hamza'
+    
+                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ${componentsPath} ${nexusUrl}/repository/${nexusRepository}" 
+                }
+            }
+        }
     }
 }
