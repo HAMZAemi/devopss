@@ -39,7 +39,7 @@ pipeline {
                     sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./target/maven-status ${nexusUrl}"
                     sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./target/generated-sources ${nexusUrl}"
                     sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ./target/test-classes ${nexusUrl}"
-                    sh "curl -u ${nexusUsername}:${nexusPassword} -T target/ --path-as-is  -X PUT ${nexusUrl}/repository/${nexusRepository}/"
+                    sh "curl -u ${nexusUsername}:${nexusPassword} -T target/ --path-as-is  -X PUT ${nexusUrl}"
                 }
             }
         }
