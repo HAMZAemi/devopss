@@ -23,16 +23,15 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+          stage('Deliver') {
             steps {
                 script {
-                    sh "cd target/"
                     def nexusUrl = 'http://192.99.35.61:8081/repository/hamza/'
-                    def nexusUsername = 'exosdata'
+                    def nexusUsername = 'exosdata'  
                     def nexusPassword = 'stage'
                     def nexusRepository = 'hamza'
-    
-                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file my-app-1.0-SNAPSHOT.jar ${nexusUrl}/repository/${nexusRepository}" 
+
+                    sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file target/my-app-1.0-SNAPSHOT.jar ${nexusUrl}/repository/${nexusRepository}"
                 }
             }
         }
