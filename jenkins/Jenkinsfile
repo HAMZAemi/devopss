@@ -11,7 +11,9 @@ pipeline {
         stage('Build') {
             steps {
                 sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package' 
-                sh 'cd target && ls '
+                sh 'cd target/test-classes && ls '
+                sh 'cd target/maven-archiver && ls '
+                sh 'cd target/test-classes && ls '
             }
         }
         stage('Test') {
