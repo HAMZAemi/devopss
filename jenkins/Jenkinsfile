@@ -29,9 +29,11 @@ sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package'            }
       def nexusUrl = 'http://192.99.35.61:8081/repository/hamza/'
       def nexusUsername = 'exosdata'
       def nexusPassword = 'stage'
-      def nexusRepository = 'ExosData'
+      def nexusRepository = 'hamza'
       
-      sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ${componentsPath} ${nexusUrl}/repository/${nexusRepository}"
+          sh "curl -u ${nexusUsername}:${nexusPassword} --upload-file ${componentsPath} ${nexusUrl}/repository/${nexusRepository}"
+          sh "cd ${componentsPath} && curl -u ${nexusUsername}:${nexusPassword} --upload-file ./* ${nexusUrl}/repository/${nexusRepository}"
+          sh "curl -u exosdata:stage --upload-file ./target http://192.99.35.61:8081/repository/hamza/"
     }
   }
 }
