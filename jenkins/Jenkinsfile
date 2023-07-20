@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '/opt/apache-maven-3.6.3/bin/mvn -B -DskipTests clean package' 
+                sh '/mvn -B -DskipTests clean package' 
                 sh 'cd target/test-classes && ls '
                 sh 'cd target/maven-archiver && ls '
                 sh 'cd target/test-classes && ls '
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh '/opt/apache-maven-3.6.3/bin/mvn test' 
+                sh 'mvn test' 
             }
             post {
                 always {
@@ -27,7 +27,7 @@ pipeline {
             }
         }
           stage('Deliver') {
-            steps { sh '/opt/apache-maven-3.6.3/bin/mvn clean deploy '}
+            steps { sh 'mvn clean deploy '}
                 
         }
     }
