@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '/mvn -B -DskipTests clean package' 
+                sh 'mvn -B -DskipTests clean package' 
                 sh 'cd target/test-classes && ls '
                 sh 'cd target/maven-archiver && ls '
                 sh 'cd target/test-classes && ls '
